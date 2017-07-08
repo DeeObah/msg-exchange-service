@@ -33,7 +33,7 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>zw.co.doba</groupId>
+            <groupId>zw.co.dobadoba</groupId>
             <artifactId>msg-exchange-domain</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
