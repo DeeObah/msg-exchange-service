@@ -40,9 +40,13 @@ public class Message implements Serializable {
     @PrePersist
     protected void init() {
         dateCreated = LocalDateTime.now();
-        dateLastUpdated = LocalDateTime.now();
+        status=Status.RECEIVED_AT_EXCHANGE;
         if(id == null || id == 0l) {
             id = DomainKeyGenerator.getKey();
         }
+    }
+    @PreUpdate
+    protected void update() {
+        dateLastUpdated = LocalDateTime.now();
     }
 }

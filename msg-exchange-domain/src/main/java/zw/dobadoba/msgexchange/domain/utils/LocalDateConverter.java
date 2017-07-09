@@ -14,10 +14,13 @@ import java.util.Date;
 public class LocalDateConverter implements AttributeConverter<LocalDate,Date>{
 
     public Date convertToDatabaseColumn(LocalDate date) {
-        return Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        return date!=null ? Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant()) :null;
     }
 
     public LocalDate convertToEntityAttribute(Date value) {
+        if(value==null){
+            return null;
+        }
         Instant instant = value.toInstant();
         return instant.atZone(ZoneId.systemDefault()).toLocalDate();
     }
