@@ -9,7 +9,10 @@ import zw.dobadoba.msgexchange.domain.Message;
  */
 public interface MessageService  {
 
-     Message processMessage(Msg message);
+     Message processInboundMessage(Msg message);
+
+     Message processOutboundMessage(Msg msg, MessageSource messageSource);
 
      Message updateMessage(Msg message);
+     Message save(Msg msg);
 }

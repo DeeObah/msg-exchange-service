@@ -1,6 +1,7 @@
 package zw.co.dobadoba.msgexchange.service.rest.receiver;
 
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -14,19 +15,15 @@ import zw.co.dobadoba.msgexchange.service.rest.data.Msg;
 @RequestMapping("/rest")
 public class MessageReceiver {
 
-
     private MessageService messageService;
-    private RabbitTemplate rabbitTemplate;
 
-    public MessageReceiver(MessageService messageService, RabbitTemplate rabbitTemplate) {
+    public MessageReceiver(MessageService messageService) {
         this.messageService = messageService;
-        this.rabbitTemplate = rabbitTemplate;
     }
 
     @PostMapping(value = "/msg", consumes = { MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE} )
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void receiveMessage(@RequestBody Msg msg){
-         messageService.processMessage(msg);
-         System.out.println("########Recived Message"+msg);
+         messageService.processInboundMessage(msg);
     }
 }

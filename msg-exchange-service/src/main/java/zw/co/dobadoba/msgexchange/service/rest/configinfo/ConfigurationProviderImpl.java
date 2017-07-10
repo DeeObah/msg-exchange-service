@@ -1,7 +1,10 @@
 package zw.co.dobadoba.msgexchange.service.rest.configinfo;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import zw.co.dobadoba.msgexchange.service.rest.RestUtils;
 import zw.co.dobadoba.msgexchange.service.rest.data.Config;
@@ -11,6 +14,7 @@ import zw.co.dobadoba.msgexchange.service.rest.data.Config;
  */
 public class ConfigurationProviderImpl implements ConfigurationProvider {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ConfigurationProviderImpl.class);
 
     private RestTemplate restTemplate;
     private String getConfigUrl;
@@ -22,11 +26,11 @@ public class ConfigurationProviderImpl implements ConfigurationProvider {
 
     @Override
     public Config getConfig() {
-
-        System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+getConfigUrl+"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+        LOGGER.info("Obtaining configuration information from "+getConfigUrl);
         final HttpEntity<?> requestEntity = new HttpEntity<>(RestUtils.getRequestHeaders());
-        final HttpEntity<Config> response = restTemplate.exchange(
+        final ResponseEntity<Config> response = restTemplate.exchange(
                 getConfigUrl, HttpMethod.GET, requestEntity,Config.class);
+        LOGGER.info("Application initializes with Config information: {}",response.getBody());
         return  response.getBody();
     }
 }

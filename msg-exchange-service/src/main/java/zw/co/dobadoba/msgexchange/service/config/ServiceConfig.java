@@ -5,12 +5,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.core.annotation.Order;
 import org.springframework.web.client.RestTemplate;
 import zw.co.dobadoba.msgexchange.repository.MessageRepository;
 import zw.co.dobadoba.msgexchange.repository.config.RepositoryConfig;
 import zw.co.dobadoba.msgexchange.service.message.MessageService;
 import zw.co.dobadoba.msgexchange.service.message.MessageServiceImpl;
+import zw.co.dobadoba.msgexchange.service.ratelimit.ConfigurationHolder;
 import zw.co.dobadoba.msgexchange.service.rest.configinfo.ConfigurationProvider;
 import zw.co.dobadoba.msgexchange.service.rest.configinfo.ConfigurationProviderImpl;
 import zw.co.dobadoba.msgexchange.service.rest.sender.MessageSender;
@@ -20,7 +20,7 @@ import zw.co.dobadoba.msgexchange.service.rest.sender.MessageSenderImpl;
  * Created by dobadoba on 7/8/17.
  */
 @Configuration
-@Import({RepositoryConfig.class})
+@Import({RepositoryConfig.class,AmqpConfig.class})
 public class ServiceConfig {
 
     RestTemplate restTemplate = new RestTemplate();
@@ -31,8 +31,10 @@ public class ServiceConfig {
     }
 
     @Bean
-    public MessageService messageService(MessageRepository messageRepository,RabbitTemplate rabbitTemplate, @Value("${amqp.queue}") String queueName){
-        return new MessageServiceImpl(messageRepository,rabbitTemplate,queueName);
+    public MessageService messageService(MessageRepository messageRepository,RabbitTemplate rabbitTemplate,
+                                         @Value("${amqp.queue}") String queueName,MessageSender messageSender){
+        MessageServiceImpl messageService = new MessageServiceImpl(messageRepository,rabbitTemplate,messageSender,queueName);
+        return messageService;
     }
 
     @Bean

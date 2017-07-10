@@ -5,18 +5,22 @@ import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.connection.RabbitConnectionFactoryBean;
+import org.springframework.amqp.rabbit.connection.SimpleRoutingConnectionFactory;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
-import zw.co.dobadoba.msgexchange.service.amqp.QueueMessageReceiver;
+import org.springframework.context.annotation.Import;
+import zw.co.dobadoba.msgexchange.service.amqp.QueueProcessor;
 
 /**
  * Created by dobadoba on 7/8/17.
  */
 @Configuration
+@Import(QueueProcessor.class)
 public class AmqpConfig {
 
     @Value("${amqp.queue}")
@@ -24,6 +28,7 @@ public class AmqpConfig {
 
     @Value("${amqp.exchange}")
     private String exchange;
+
 
     @Bean
     Queue queue() {
@@ -41,8 +46,7 @@ public class AmqpConfig {
     }
 
     @Bean
-    SimpleMessageListenerContainer container(ConnectionFactory connectionFactory,
-                                             MessageListenerAdapter listenerAdapter) {
+    SimpleMessageListenerContainer container(ConnectionFactory connectionFactory,MessageListenerAdapter listenerAdapter) {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.setQueueNames(queueName);
@@ -51,8 +55,8 @@ public class AmqpConfig {
     }
 
     @Bean
-    MessageListenerAdapter listenerAdapter(QueueMessageReceiver queueMessageReceiver) {
-        return new MessageListenerAdapter(queueMessageReceiver, "receiveMessage");
+    MessageListenerAdapter listenerAdapter(QueueProcessor receiver) {
+        return new MessageListenerAdapter(receiver, "receiveMessage");
     }
 
 }
