@@ -13,7 +13,7 @@ Prerequisites
 
 2.Databse user with name exchange and password 3xc#@n8e with create, inster and update rights.
 
-3.Test bench application running on localhost port 8181
+3.The test bench application running on localhost port 8181
 
 
 
