@@ -15,6 +15,8 @@ Prerequisites
 
 3.The test bench application running on localhost port 8181
 
+4.Rabbit rabbitmq server running on default 15672 and guest account
+
 
 
 Installing
