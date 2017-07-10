@@ -18,7 +18,6 @@ import zw.co.dobadoba.msgexchange.service.rest.data.Config;
 public class MessageServiceApplication {
 
      public static void main(String[] args) {
-            System.setProperty("spring.profiles.active","development");
             ApplicationContext context = SpringApplication.run(MessageServiceApplication.class, args);
             final Config config = context.getBean(ConfigurationProvider.class).getConfig();
             ConfigurationHolder.setConfig(config);

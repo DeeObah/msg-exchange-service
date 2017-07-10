@@ -95,7 +95,7 @@ public class MessageServiceImpl implements MessageService {
             messageCount=0;
         }
         posted++;
-        LOGGER.info("Message Count for this Second: {} Total Posted: {} Queued: {} Sink Rate: {}",messageCount,posted,queued,ConfigurationHolder.getConfig().getSinkRate());
+        LOGGER.info("Message Count for this Second: {} Total Posted: {} Posted Via Queue: {} Sink Rate: {}",messageCount,posted,queued,ConfigurationHolder.getConfig().getSinkRate());
         return updateMessage(msg);
     }
 

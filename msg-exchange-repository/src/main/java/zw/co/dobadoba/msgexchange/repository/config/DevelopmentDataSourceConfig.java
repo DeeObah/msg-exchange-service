@@ -13,7 +13,6 @@ import javax.sql.DataSource;
  * Created by dobadoba on 7/8/17.
  */
 @Configuration
-@Profile("development")
 @PropertySource("classpath:jdbc.development.properties")
 public class DevelopmentDataSourceConfig {
 
