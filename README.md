@@ -8,7 +8,9 @@ Get a comapy of the project by cloning or downloading the project zip.
 Prerequisites
 
 1.A mysql database hosted localhost with 3306 and schema name msg_exchange.
+
 2.Databse user with name exchange and password 3xc#@n8e with create, inster and update rights.
+
 3.Test bench application running on localhost port 8181
 
 Installing
@@ -20,6 +22,7 @@ mvn clean install
 Starting the application
 
 Option 1: Run the main application in msg-exchange-service module.
+
 Option 2: From the main application folder, run the following below
 
 java -jar msg-exchange-service/target/msg-exchange-service-1.0-RELEASE.jar 
