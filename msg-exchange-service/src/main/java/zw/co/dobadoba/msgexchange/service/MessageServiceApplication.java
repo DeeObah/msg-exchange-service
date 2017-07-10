@@ -24,5 +24,6 @@ public class MessageServiceApplication {
             ConfigurationHolder.setConfig(config);
             ConfigurationHolder.setSinkRateLimit(RateLimiter.create(config.getSinkRate()));
             ConfigurationHolder.setSourceRateLimits(SourceRateLimitBuilder.populateSourceRateLimits(config));
+            SourceRateLimitBuilder.populateInitialSourceCounts();
         }
 }

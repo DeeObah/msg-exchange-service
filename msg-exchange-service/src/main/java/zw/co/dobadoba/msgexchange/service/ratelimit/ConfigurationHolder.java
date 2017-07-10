@@ -10,11 +10,13 @@ import java.util.Map;
  * Created by dobadoba on 7/8/17.
  */
 @Data
-public final class ConfigurationHolder {
+
+public class ConfigurationHolder {
 
     private static Config config;
     private static RateLimiter sinkRateLimit;
     private static Map<String,RateLimiter> sourceRateLimits;
+
 
     public static Config getConfig() {
         return config;

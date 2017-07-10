@@ -14,6 +14,14 @@ public class Config implements Serializable {
     private Map<String,Integer> config;
     private int sinkRate;
 
+    public Config() {
+    }
+
+    public Config(Map<String, Integer> config, int sinkRate) {
+        this.config = config;
+        this.sinkRate = sinkRate;
+    }
+
     public Map<String, Integer> getConfig() {
         return config;
     }

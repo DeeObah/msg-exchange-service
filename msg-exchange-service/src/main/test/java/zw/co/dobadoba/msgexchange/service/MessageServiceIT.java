@@ -59,6 +59,7 @@ public class MessageServiceIT {
         messageEntity.setStatus(Status.RECEIVED_AT_EXCHANGE);
         return messageEntity;
     }
+    
     private Msg getMessageFromQue(){
         Msg msg = new Msg();
         msg.setSource("source1");
