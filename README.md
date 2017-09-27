@@ -32,7 +32,7 @@ Starting the application
 
 Option 1: Run the main application in msg-exchange-service module.
 
-Option 2: From the main application folder, run the following below
+Option 2: From the main application folder, run the command below
 
 java -jar msg-exchange-service/target/msg-exchange-service-1.0-RELEASE.jar 
 
